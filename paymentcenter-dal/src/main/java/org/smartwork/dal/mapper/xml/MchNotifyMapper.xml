@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.smartwork.dal.mapper.MchNotifyMapper">
+  <resultMap id="BaseResultMap" type="org.smartwork.dal.entity.MchNotify">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="mch_id" jdbcType="VARCHAR" property="mchId" />
+    <result column="mch_order_no" jdbcType="VARCHAR" property="mchOrderNo" />
+    <result column="order_type" jdbcType="VARCHAR" property="orderType" />
+    <result column="notify_url" jdbcType="VARCHAR" property="notifyUrl" />
+    <result column="notify_count" jdbcType="TINYINT" property="notifyCount" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="last_notify_time" jdbcType="TIMESTAMP" property="lastNotifyTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, create_by, create_time, update_by, update_time, order_id, mch_id, mch_order_no, 
+    order_type, notify_url, notify_count, result, status, last_notify_time
+  </sql>
+</mapper>
