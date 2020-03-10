@@ -8,27 +8,26 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>paymentcenter-provider</artifactId>
+
+    <artifactId>paymentcenter-api</artifactId>
     <dependencies>
         <dependency>
             <groupId>org.smartwork</groupId>
             <artifactId>paymentcenter-comm</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.smartwork</groupId>
             <artifactId>paymentcenter-dal</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.smartwork</groupId>
             <artifactId>paymentcenter-biz</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.smartwork</groupId>
-            <artifactId>paymentcenter-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
     <build>
@@ -38,15 +37,8 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>org.smartwork.SmartworkApplication</mainClass>
+                    <classifier>exec</classifier>
                 </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal><!--可以把依赖的包都打包到生成的Jar包中-->
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

@@ -3,6 +3,7 @@ package org.smartwork.comm;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.Maps;
@@ -16,19 +17,20 @@ import org.forbes.comm.vo.ResultEnum;
 public enum PayChannelEnum {
 
 
-    PAY_CHANNEL_WX_JSAPI("WX_JSAPI", "微信公众号支付", "WX"),
-    PAY_CHANNEL_WX_NATIVE("WX_NATIVE", "微信原生扫码支付", "WX"),
-    PAY_CHANNEL_WX_APP("WX_APP", "微信APP支付", "WX"),
-    PAY_CHANNEL_WX_MWEB("WX_MWEB", "微信H5支付", "WX"),
-    PAY_CHANNEL_IAP("IAP", "苹果应用内支付", "IAP"),
-    PAY_CHANNEL_ALIPAY_MOBILE("ALIPAY_MOBILE", "支付宝移动支付", "ALIPAY"),
-    PAY_CHANNEL_ALIPAY_PC("ALIPAY_PC", "支付宝PC支付", "ALIPAY"),
-    PAY_CHANNEL_ALIPAY_WAP("ALIPAY_WAP", "支付宝WAP支付", "ALIPAY"),
-    PAY_CHANNEL_ALIPAY_QR("ALIPAY_QR", "支付宝当面付之扫码支付", "ALIPAY");
+    PAY_CHANNEL_WX_JSAPI("WX_JSAPI", "微信公众号支付", "WX","JSAPI"),
+    PAY_CHANNEL_WX_NATIVE("WX_NATIVE", "微信原生扫码支付", "WX","NATIVE"),
+    PAY_CHANNEL_WX_APP("WX_APP", "微信APP支付", "WX","APP"),
+    PAY_CHANNEL_WX_MWEB("WX_MWEB", "微信H5支付", "WX","MWEB"),
+    PAY_CHANNEL_IAP("IAP", "苹果应用内支付", "IAP",""),
+    PAY_CHANNEL_ALIPAY_MOBILE("ALIPAY_MOBILE", "支付宝移动支付", "ALIPAY",""),
+    PAY_CHANNEL_ALIPAY_PC("ALIPAY_PC", "支付宝PC支付", "ALIPAY",""),
+    PAY_CHANNEL_ALIPAY_WAP("ALIPAY_WAP", "支付宝WAP支付", "ALIPAY",""),
+    PAY_CHANNEL_ALIPAY_QR("ALIPAY_QR", "支付宝当面付之扫码支付", "ALIPAY","");
 
     private String code;
     private String name;
     private String groupCode;
+    private String tradeType;
 
 
     /***
@@ -56,14 +58,30 @@ public enum PayChannelEnum {
 
     /***
      *
+     * @param code
+     * @return
+     */
+    public static String receTradeType(String code){
+        Optional<String> optionTradeType =  Arrays.asList(PayChannelEnum.values()).stream()
+                .filter(payChannel -> ConvertUtils.isNotEmpty(code)&&payChannel.getCode().equals(code)).map(payChannel->payChannel.getTradeType()).findFirst();
+        if(optionTradeType.isPresent()){
+            return optionTradeType.get();
+        } else {
+            return null;
+        }
+    }
+
+    /***
+     *
      * 构造函数:
      * @param code
      * @param name
      */
-    PayChannelEnum(String code, String name, String groupCode) {
+    PayChannelEnum(String code, String name, String groupCode,String tradeType) {
         this.code = code;
         this.name = name;
         this.groupCode = groupCode;
+        this.tradeType = tradeType;
     }
 
     /**
@@ -87,5 +105,7 @@ public enum PayChannelEnum {
         return groupCode;
     }
 
-
+    public String getTradeType() {
+        return tradeType;
+    }
 }

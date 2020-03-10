@@ -8,6 +8,7 @@
         <module>paymentcenter-dal</module>
         <module>paymentcenter-biz</module>
         <module>paymentcenter-provider</module>
+        <module>paymentcenter-api</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -31,6 +32,29 @@
             <groupId>org.forbes</groupId>
             <artifactId>forbes-comm</artifactId>
             <version>${comm.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.forbes</groupId>
+            <artifactId>forbes-pay</artifactId>
+            <version>${comm.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--wx_pay-->
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-pay</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+        <!--ali-pay-->
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>4.9.9</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.kafka</groupId>
@@ -141,6 +165,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>org.smartwork.SmartworkApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>

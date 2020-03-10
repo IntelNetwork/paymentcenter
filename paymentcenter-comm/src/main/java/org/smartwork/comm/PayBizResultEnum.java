@@ -14,7 +14,16 @@ public enum PayBizResultEnum {
 	MCH_ID_EXISTS("007001003","商户ID已存在","%s商户ID已存在"),
 	CHANNEL_NAME_NOT_EXISTS("007002001","支付渠道错误","%s支付渠道不存在"),
 	CHANNEL_ID_NOT_EXISTS("007002002","支付渠道ID错误","%s支付渠道ID不存在"),
-	CHANNEL_ID_EXISTS("007002003","商户支付渠道已存在","商户已存在%s支付渠道");
+	CHANNEL_ID_EXISTS("007002003","商户支付渠道已存在","商户已存在%s支付渠道"),
+	EXTRA_EMPTY("007003001","扩展参数为空",""),
+	OPENID_EMPTY("007003002","OpenId为空",""),
+	PRODUCT_ID_EMPTY("007003003","productId为空",""),
+	SCENEINFO_EMPTY("007003004","sceneInfo为空",""),
+	CLIENT_IP_EMPTY("007003005","clientIp为空",""),
+	SIGN_ERROR("007003006","签名错误",""),
+	MCH_ID_NOT_EXISTS("007003007","商家不存在","%s对应商家不存在"),
+	MCH_ID_STOP("007003008","商家已停用/还未启用","%s对应商家已停用/还未启用"),
+	CHANNEL_ID_STOP("007003009","商家支付渠道已停用/还未启用","%s商家支付渠道已停用/还未启用");
 
 
 	/**错误编码业务系统代码+功能编码+错误代码**/
