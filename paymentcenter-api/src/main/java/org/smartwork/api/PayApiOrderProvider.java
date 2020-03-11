@@ -199,6 +199,7 @@ public class PayApiOrderProvider {
                             .setParam2(payDto.getParam2())
                             .setNotifyUrl(payDto.getNotifyUrl())
                             .setSubject(payDto.getSubject())
+                            .setPayChannelParam(payChannel.getParam())
                             .setExtra(payDto.getExtra())
                             .setBody(payDto.getBody());
                     String channelParam = payChannel.getParam();
@@ -210,8 +211,6 @@ public class PayApiOrderProvider {
                         payOrderDto.setWxPayProperties(wxPayProperties);
                     }
                     payPlugService.beforePay(payOrderDto.setMchKey(mchInfo.getResKey())
-                            .setAppId(channelParamObj.getString("appId"))
-                            .setCertLocalPath(channelParamObj.getString("certLocalPath"))
                             .setTradeType(PayChannelEnum.receTradeType(payDto.getChannelId())));
                      Map<String,Object> reponseMap = payPlugService.payReq(null,((payOrderId, payOrderNo) -> {
                         boolean updatePayOrderRows = payOrderService.update(new UpdateWrapper<PayOrder>()

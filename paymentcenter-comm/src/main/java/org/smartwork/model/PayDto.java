@@ -59,8 +59,8 @@ public class PayDto implements Serializable {
     @ApiModelProperty(value = "扩展参数2")
     private  String param2;
 
-    @ApiModelProperty(value = "支付结果回调URL")
-    @NotEmpty(message = "支付结果回调URL为空")
+    @ApiModelProperty(value = "支付结果回调主题")
+    @NotEmpty(message = "支付结果回调主题为空")
     private  String notifyUrl;
 
 

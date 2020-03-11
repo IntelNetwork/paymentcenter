@@ -1,10 +1,12 @@
 package org.smartwork.dal.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.forbes.comm.entity.BaseEntity;
 
 /**
@@ -12,6 +14,7 @@ import org.forbes.comm.entity.BaseEntity;
  */
 @Data
 @ApiModel(description="商户通知")
+@Accessors(chain = true)
 @TableName("fb_mch_notify")
 public class MchNotify extends BaseEntity {
     /**
@@ -51,7 +54,7 @@ public class MchNotify extends BaseEntity {
      * Column:    order_type
      * Nullable:  false
      */
-    @ApiModelProperty(value = "订单类型:1-支付,2-转账,3-退款",example="")
+    @ApiModelProperty(value = "订单类型:1-支付,2-转账,3-退款",example="0")
     private String orderType;
 
     /**
@@ -71,8 +74,8 @@ public class MchNotify extends BaseEntity {
      * Column:    notify_count
      * Nullable:  false
      */
-    @ApiModelProperty(value = "通知次数",example="")
-    private Byte notifyCount;
+    @ApiModelProperty(value = "通知次数",example="0")
+    private Integer notifyCount;
 
     /**
      * 通知响应结果
@@ -91,8 +94,8 @@ public class MchNotify extends BaseEntity {
      * Column:    status
      * Nullable:  false
      */
-    @ApiModelProperty(value = "通知状态,1-通知中,2-通知成功,3-通知失败",example="")
-    private Byte status;
+    @ApiModelProperty(value = "通知状态,1-通知中,2-通知成功,3-通知失败",example="0")
+    private Integer status;
 
     /**
      * 最后一次通知时间
@@ -103,4 +106,13 @@ public class MchNotify extends BaseEntity {
      */
     @ApiModelProperty(value = "最后一次通知时间",example="")
     private Date lastNotifyTime;
+
+
+    /***静态方法
+     */
+    public  static class  MchNotifyBuild{
+        public static MchNotify build(){
+            return new MchNotify();
+        }
+    }
 }

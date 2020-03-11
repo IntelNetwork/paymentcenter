@@ -76,7 +76,7 @@ public class PayUtil {
     }
 
     public static void main(String[] args) {
-        String reqJson = "{ \"mchId\" :\"1504615171\",\"notifyUrl\":\"pay\", \"mchOrderNo\" :\"555555\", \"channelId\" :\"WX_NATIVE\", \"amount\" :\"1\", \"currency\" :\"cny\", \"subject\" :\"测试商品\", \"body\" :\"测试商品\", \"extra\" :{ \"productId\" :\"111111\" } }";
+        String reqJson = "{ \"mchId\" :\"2021001100693156\",\"notifyUrl\":\"pay\", \"mchOrderNo\" :\"66666\", \"channelId\" :\"ALIPAY_PC\", \"amount\" :\"1\", \"currency\" :\"cny\", \"subject\" :\"测试商品\", \"body\" :\"测试商品\", \"extra\" :{ \"productId\" :\"111111\" } }";
         String str = PayDigestUtil.getSign(JSON.parseObject(reqJson,Map.class), "X3QCQVxXMPqgSIyN3W04u1NxogiUshLP");
         System.out.println("=========str========="+str);
     }

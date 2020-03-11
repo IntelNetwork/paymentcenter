@@ -1,7 +1,4 @@
 package org.smartwork.api;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.github.binarywang.wxpay.bean.notify.WxPayNotifyResponse;
@@ -21,6 +18,7 @@ import org.forbes.pay.comm.channel.wechat.WxPayProperties;
 import org.forbes.pay.comm.channel.wechat.WxPayUtil;
 import org.forbes.pay.comm.context.PayContext;
 import org.forbes.pay.comm.model.PayOrderDto;
+import org.smartwork.comm.OrderTypeEnum;
 import org.smartwork.constant.PayConstant;
 import org.smartwork.dal.entity.MchInfo;
 import org.smartwork.dal.entity.PayChannel;
@@ -92,7 +90,7 @@ public class NotifyWxPayProvider extends NotifyBasePay{
             }
             // 业务系统后端通知
             if(ConvertUtils.isNotEmpty(payOrderDto.getNotifyUrl())){
-                //kafkaProducers.msgProducer();
+                notifyMch(OrderTypeEnum.PAY);
             }
             log.info("====== 完成接收微信支付回调通知 ======");
             return WxPayNotifyResponse.success("处理成功");
@@ -152,19 +150,17 @@ public class NotifyWxPayProvider extends NotifyBasePay{
             return false;
         }
         String channelParam = payChannel.getParam();
-        JSONObject channelParamObj = JSON.parseObject(channelParam);
         WxPayProperties wxPayProperties = SpringContextUtils.getBean(WxPayProperties.class);
         PayOrderDto payOrderDto = PayOrderDto.PayOrderDtoBuild
                 .build()
                 .setPayOrderId(payOrderId)
-                .setAppId(channelParamObj.getString("appId"))
-                .setCertLocalPath(channelParamObj.getString("certLocalPath"))
+                .setPayChannelParam(channelParam)
                 .setTradeType(notifyResult.getTradeType())
                 .setMchId(mchId)
                 .setStatus(payOrder.getStatus())
                 .setMchKey(mchInfo.getResKey())
                 .setWxPayProperties(wxPayProperties);
-        resultMap.put("wxPayConfig", WxPayUtil.getWxPayConfig(payOrderDto));
+        resultMap.put("wxPayConfig", WxPayUtil.getWxPayConfig(payOrderDto,channelParam));
         PayContext.TH_PAY_ORDER.set(payOrderDto);
         // 核对金额
         long wxPayAmt = new BigDecimal(total_fee).longValue();
