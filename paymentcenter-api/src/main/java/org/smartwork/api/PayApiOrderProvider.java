@@ -5,16 +5,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang.StringUtils;
 import org.forbes.comm.utils.ConvertUtils;
 import org.forbes.comm.utils.SpringContextUtils;
 import org.forbes.comm.vo.Result;
+import org.forbes.comm.vo.ResultEnum;
 import org.forbes.pay.PayPlugService;
 import org.forbes.pay.comm.channel.wechat.WxPayProperties;
 import org.forbes.pay.comm.enums.PayServiceEnum;
@@ -30,6 +26,7 @@ import org.smartwork.dal.entity.MchInfo;
 import org.smartwork.dal.entity.PayChannel;
 import org.smartwork.dal.entity.PayOrder;
 import org.smartwork.model.PayDto;
+import org.smartwork.util.PayDigestUtil;
 import org.smartwork.util.PaySeq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
@@ -42,10 +39,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.TreeMap;
+import java.util.*;
 
 @Api(tags = {"支付订单创建"})
 @Slf4j
@@ -68,9 +62,42 @@ public class PayApiOrderProvider {
 
 
     /***
+     * 获取支付渠道说明
+     * @return
+     */
+    @ApiOperation("获取支付渠道说明")
+    @RequestMapping(value = "/channels",method = RequestMethod.GET)
+    public Result<List<ResultEnum>> channels(){
+        Result<List<ResultEnum>> result = new Result<>();
+        result.setResult(PayChannelEnum.resultEnums());
+        return result;
+    }
+
+
+    /***
+     *获取支付渠道
+     * @return
+     */
+    @ApiOperation("获取支付渠道")
+    @RequestMapping(value = "/pay-channels",method = RequestMethod.GET)
+    public Result<Map<String,String>> payChannels(){
+        Result<Map<String,String>>  resultMap = new Result<>();
+        List<PayChannel> payChannels = payChannelService.list();
+        Map<String,String> payChannelMap = new HashMap<>();
+        payChannels.stream().forEach(payChannel -> {
+            if(MchStateEnum.ACTIVITY.getCode().equals(payChannel.getState())){
+                payChannelMap.put(payChannel.getChannelId(),payChannel.getMchId());
+            }
+
+        });
+        resultMap.setResult(payChannelMap);
+         return resultMap;
+    }
+
+    /***
      *
      * @param request
-     * @return
+     * @returncd
      */
     public  String getIPAddress(HttpServletRequest request) {
         String ip = null;
@@ -163,6 +190,8 @@ public class PayApiOrderProvider {
                     return result;
                 }
                 String reqKey = mchInfo.getReqKey();
+                String reqJson = JSON.toJSONString(payDto);
+                payDto.setSign(PayDigestUtil.getSign(JSON.parseObject(reqJson,Map.class), reqKey));
                 payDto.verifyPaySign(result,reqKey);
                 if("0000".equalsIgnoreCase(result.getBizCode())){
                     payDto.setReqKey(reqKey);

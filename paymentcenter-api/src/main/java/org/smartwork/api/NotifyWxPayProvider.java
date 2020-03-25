@@ -157,8 +157,10 @@ public class NotifyWxPayProvider extends NotifyBasePay{
                 .setPayChannelParam(channelParam)
                 .setTradeType(notifyResult.getTradeType())
                 .setMchId(mchId)
+                .setMchOrderNo(payOrder.getMchOrderNo())
                 .setStatus(payOrder.getStatus())
                 .setMchKey(mchInfo.getResKey())
+                .setNotifyUrl(payOrder.getNotifyUrl())
                 .setWxPayProperties(wxPayProperties);
         resultMap.put("wxPayConfig", WxPayUtil.getWxPayConfig(payOrderDto,channelParam));
         PayContext.TH_PAY_ORDER.set(payOrderDto);

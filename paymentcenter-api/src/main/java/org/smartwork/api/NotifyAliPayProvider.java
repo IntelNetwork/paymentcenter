@@ -183,6 +183,8 @@ public class NotifyAliPayProvider extends NotifyBasePay {
                 .build()
                 .setPayOrderId(payOrderId)
                 .setPayChannelParam(payChannel.getParam())
+                .setMchOrderNo(payOrder.getMchOrderNo())
+                .setNotifyUrl(payOrder.getNotifyUrl())
                 .setMchId(mchId)
                 .setStatus(payOrder.getStatus());
         PayContext.TH_PAY_ORDER.set(payOrderDto);

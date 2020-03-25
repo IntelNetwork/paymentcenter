@@ -65,7 +65,6 @@ public class PayDto implements Serializable {
 
 
     @ApiModelProperty(value = "签名")
-    @NotEmpty(message = "签名为空")
     private  String sign;
 
     @ApiModelProperty(value = "商品主题")

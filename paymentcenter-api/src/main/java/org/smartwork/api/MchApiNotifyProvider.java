@@ -12,7 +12,6 @@ import org.smartwork.biz.service.IMchNotifyService;
 import org.smartwork.comm.NotifyStatusEnum;
 import org.smartwork.dal.entity.MchNotify;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
