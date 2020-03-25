@@ -8,9 +8,7 @@ import org.forbes.comm.vo.Result;
 import org.forbes.comm.vo.ResultEnum;
 import org.forbes.provider.BaseProvider;
 import org.smartwork.biz.service.IPayChannelService;
-import org.smartwork.comm.ChannelNameEnum;
-import org.smartwork.comm.MchTypeEnum;
-import org.smartwork.comm.PayChannelEnum;
+import org.smartwork.comm.*;
 import org.smartwork.dal.entity.PayChannel;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,4 +50,19 @@ public class PayChannelProvider extends BaseProvider<IPayChannelService, PayChan
     public List<ResultEnum> PayChanne(){
         return PayChannelEnum.resultEnums();
     }
+
+    /***
+     *
+     * @return
+     */
+    @ApiOperation("启用状态")
+    @ApiResponses(value = {
+            @ApiResponse(code=200,message = Result.COMM_ACTION_MSG),
+            @ApiResponse(code=500,message = Result.COMM_ACTION_ERROR_MSG)
+    })
+    @RequestMapping(value = "/channel-states",method = RequestMethod.GET)
+    public List<ResultEnum> ChannelState(){
+        return ChannelStateEnum.resultEnums();
+    }
+
 }
