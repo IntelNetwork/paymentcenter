@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 
@@ -26,6 +27,39 @@ public class MchInfoServiceImpl extends ServiceImpl<MchInfoMapper, MchInfo> impl
 
     @Autowired
     PayChannelMapper payChannelMapper;
+
+    /***商家提点数
+     * @param entity
+     * @return
+     */
+    @Transactional(
+            rollbackFor = {Exception.class}
+    )
+    @Override
+    public boolean save(MchInfo entity) {
+        if(entity.getReflectPoints().compareTo(BigDecimal.ZERO) < 0){
+            throw new ForbesException(PayBizResultEnum.MCH_POINTS.getBizCode(),PayBizResultEnum.MCH_POINTS.getBizMessage());
+        }
+        boolean isAdd =  SqlHelper.retBool(baseMapper.insert(entity));
+        return isAdd;
+    }
+
+
+    /***商家提点数
+     * @param entity
+     * @return
+     */
+    @Transactional(
+            rollbackFor = {Exception.class}
+    )
+    @Override
+    public boolean updateById(MchInfo entity) {
+        if(entity.getReflectPoints().compareTo(BigDecimal.ZERO) < 0){
+            throw new ForbesException(PayBizResultEnum.MCH_POINTS.getBizCode(),PayBizResultEnum.MCH_POINTS.getBizMessage());
+        }
+        boolean isUp =  SqlHelper.retBool(baseMapper.updateById(entity));
+        return isUp;
+    }
 
     /***
      * 删除对象
