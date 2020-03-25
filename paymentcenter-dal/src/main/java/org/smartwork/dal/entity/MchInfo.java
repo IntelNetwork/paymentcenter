@@ -46,6 +46,10 @@ public class MchInfo extends BaseEntity {
     @NotEmpty(message = "商户名称为空",groups = {SaveValid.class, UpdateValid.class})
     private String name;
 
+    @ApiModelProperty(value = "商户所属渠道",example="")
+    @NotEmpty(message = "商户所属渠道",groups = {SaveValid.class, UpdateValid.class})
+    private String channel;
+
     /**
      * 类型
      *
