@@ -65,7 +65,8 @@ public class TransferApiOrderProvider {
         Map<String,Object> objMap = Maps.newHashMap();
         MchInfo mchInfo = mhInfoService.getOne(new QueryWrapper<MchInfo>().eq("channel",channel));
         if(ConvertUtils.isNotEmpty(mchInfo)){
-            objMap.put(mchInfo.getMchId(),mchInfo.getReflectPoints());
+            objMap.put("mchId",mchInfo.getMchId());
+            objMap.put("reflectPoints",mchInfo.getReflectPoints());
         }
         resultMap.setResult(objMap);
         return resultMap;
