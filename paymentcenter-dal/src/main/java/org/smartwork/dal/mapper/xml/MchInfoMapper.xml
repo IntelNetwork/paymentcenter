@@ -13,9 +13,10 @@
     <result column="req_key" jdbcType="VARCHAR" property="reqKey" />
     <result column="res_key" jdbcType="VARCHAR" property="resKey" />
     <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="reflect_points" jdbcType="BIGINT" property="reflectPoints" />
   </resultMap>
   <sql id="Base_Column_List">
     id, create_by, create_time, update_by, update_time, mch_id, name, type, req_key, 
-    res_key, state
+    res_key, state,reflect_points
   </sql>
 </mapper>

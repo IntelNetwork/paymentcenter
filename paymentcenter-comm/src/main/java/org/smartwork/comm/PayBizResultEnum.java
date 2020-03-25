@@ -12,6 +12,7 @@ public enum PayBizResultEnum {
 	MCH_TYPE_NOT_EXISTS("007001001","商户类型错误","%s商户类型不存在"),
 	MCH_STATE_NOT_EXISTS("007001002","商户状态错误","%s商户状态不存在"),
 	MCH_ID_EXISTS("007001003","商户ID已存在","%s商户ID已存在"),
+	MCH_POINTS("007001004","商户扣点数为负数","%s商户扣点数为负数"),
 	CHANNEL_NAME_NOT_EXISTS("007002001","支付渠道错误","%s支付渠道不存在"),
 	CHANNEL_ID_NOT_EXISTS("007002002","支付渠道ID错误","%s支付渠道ID不存在"),
 	CHANNEL_ID_EXISTS("007002003","商户支付渠道已存在","商户已存在%s支付渠道"),

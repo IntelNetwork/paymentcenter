@@ -14,6 +14,7 @@ import org.smartwork.comm.MchTypeEnum;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 /**
  * Table: fb_mch_info
@@ -90,4 +91,9 @@ public class MchInfo extends BaseEntity {
     @NotNull(message = "商户状态为空",groups = {SaveValid.class, UpdateValid.class})
     @ValidEnum(bizCode = "007001002",bizErrorMsg = "%s商户状态不存在",classzz = MchStateEnum.class)
     private Integer state;
+
+    /***提现点数
+     */
+    @NotNull(message = "提现点数",groups = {SaveValid.class, UpdateValid.class})
+    BigDecimal reflectPoints;
 }
