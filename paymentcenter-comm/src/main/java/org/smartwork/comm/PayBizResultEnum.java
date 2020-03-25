@@ -27,6 +27,9 @@ public enum PayBizResultEnum {
 	CHANNEL_ID_STOP("007003009","商家支付渠道已停用/还未启用","%s商家支付渠道已停用/还未启用"),
 	MCH_HAVE_RELEASED_DEL("007003009","该商家信息正在使用中，无法删除","%s该商家信息正在使用中，无法删除"),
 	PAYCHANNEL_HAVE_RELEASED_DEL("007003009","该支付渠道正在使用中，无法删除","%s该支付渠道正在使用中，无法删除"),
+	MCH_RELEASE_OR_CANCELLED("006002003","支付商家信息已使用","%s已使用"),
+	PAY_RELEASE_OR_CANCELLED("006002003","支付渠道已使用","%s已使用"),
+
 	;
 
 
