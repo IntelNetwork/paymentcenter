@@ -78,7 +78,7 @@ public class PayChannelProvider extends BaseProvider<IPayChannelService, PayChan
             @ApiResponse(code=200,message = Result.COMM_ACTION_MSG),
             @ApiResponse(code=500,message = Result.COMM_ACTION_ERROR_MSG)
     })
-    @RequestMapping(value = "/pay-channel-state",method = RequestMethod.PUT)
+    @RequestMapping(value = "/pay-channel-state/{id}",method = RequestMethod.PUT)
     public Result<PayChannel> changePayState(@PathVariable Long id, @RequestParam(value = "state") Integer state){
         PayChannel payChannel = baseService.getById(id);
         Result<PayChannel> result = new Result<PayChannel>();

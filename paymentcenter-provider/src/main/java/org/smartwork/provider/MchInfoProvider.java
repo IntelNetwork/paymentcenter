@@ -65,7 +65,7 @@ public class MchInfoProvider extends BaseProvider<IMchInfoService, MchInfo> {
             @ApiResponse(code=200,message = Result.COMM_ACTION_MSG),
             @ApiResponse(code=500,message = Result.COMM_ACTION_ERROR_MSG)
     })
-    @RequestMapping(value = "/mch-state",method = RequestMethod.PUT)
+    @RequestMapping(value = "/mch-state/{id}",method = RequestMethod.PUT)
     public Result<MchInfo> changeMchState(@PathVariable Long id, @RequestParam(value = "state") Integer state){
         MchInfo mchInfo = baseService.getById(id);
         Result<MchInfo> result = new Result<MchInfo>();
