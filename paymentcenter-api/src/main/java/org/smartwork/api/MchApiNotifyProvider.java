@@ -9,8 +9,13 @@ import org.forbes.comm.enums.BizResultEnum;
 import org.forbes.comm.utils.ConvertUtils;
 import org.forbes.comm.vo.Result;
 import org.smartwork.biz.service.IMchNotifyService;
+import org.smartwork.biz.service.IPayOrderService;
+import org.smartwork.biz.service.ITransOrderService;
 import org.smartwork.comm.NotifyStatusEnum;
+import org.smartwork.constant.PayConstant;
 import org.smartwork.dal.entity.MchNotify;
+import org.smartwork.dal.entity.PayOrder;
+import org.smartwork.dal.entity.TransOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +30,10 @@ public class MchApiNotifyProvider {
 
     @Autowired
     IMchNotifyService mchNotifyService;
+    @Autowired
+    IPayOrderService payOrderService;
+    @Autowired
+    ITransOrderService transOrderService;
 
     /***
      * 执行成功通知
@@ -52,6 +61,8 @@ public class MchApiNotifyProvider {
                     .set("status", NotifyStatusEnum.SUCCESS.getCode())
                     .set("last_notify_time",new Date())
                     .eq("order_id",orderId));
+            payOrderService.update(new UpdateWrapper<PayOrder>().eq("status", PayConstant.PAY_STATUS_COMPLETE).eq("pay_order_id",orderId));
+            transOrderService.update(new UpdateWrapper<TransOrder>().eq("status", PayConstant.TRANS_STATUS_COMPLETE).eq("trans_order_id",orderId));
             result.setResult(mchNotify);
         } catch (Exception e) {
             result.error500(e.getMessage());

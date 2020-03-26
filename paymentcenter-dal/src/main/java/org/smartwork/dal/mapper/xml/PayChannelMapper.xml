@@ -14,9 +14,10 @@
     <result column="state" jdbcType="TINYINT" property="state" />
     <result column="param" jdbcType="VARCHAR" property="param" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="oper_type" jdbcType="VARCHAR" property="operType" />
   </resultMap>
   <sql id="Base_Column_List">
     id, create_by, create_time, update_by, update_time, channel_id, channel_name, channel_mch_id, 
-    mch_id, state, param, remark
+    mch_id, state, param, remark,oper_type
   </sql>
 </mapper>

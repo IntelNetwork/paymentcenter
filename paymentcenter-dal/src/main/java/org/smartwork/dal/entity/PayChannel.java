@@ -85,6 +85,9 @@ public class PayChannel extends BaseEntity {
     @ValidEnum(bizCode = "007001002",bizErrorMsg = "%s渠道状态不存在",classzz = MchStateEnum.class)
     private Integer state;
 
+
+    private String operType;
+
     /**
      * 配置参数,json字符串
      *

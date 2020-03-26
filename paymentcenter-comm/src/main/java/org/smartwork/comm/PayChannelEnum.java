@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import com.google.common.collect.Maps;
 import org.forbes.comm.utils.ConvertUtils;
 import org.forbes.comm.vo.ResultEnum;
+import org.forbes.pay.comm.enums.BizSceneEnum;
 
 /***
  * PayChannelEnum概要说明：支付渠道
@@ -25,7 +26,8 @@ public enum PayChannelEnum {
     PAY_CHANNEL_ALIPAY_MOBILE("ALIPAY_MOBILE", "支付宝移动支付", "ALIPAY",""),
     PAY_CHANNEL_ALIPAY_PC("ALIPAY_PC", "支付宝PC支付", "ALIPAY",""),
     PAY_CHANNEL_ALIPAY_WAP("ALIPAY_WAP", "支付宝WAP支付", "ALIPAY",""),
-    PAY_CHANNEL_ALIPAY_QR("ALIPAY_QR", "支付宝当面付之扫码支付", "ALIPAY","");
+    PAY_CHANNEL_ALIPAY_QR("ALIPAY_QR", "支付宝当面付之扫码支付", "ALIPAY",""),
+    PAY_CHANNEL_ALIPAY_TRANSFER("ALIPAY_TRANSFER", "支付宝资金转账", "ALIPAY","TRANS_ACCOUNT_NO_PWD,TRANS_BANKCARD_NO_PWD");
 
     private String code;
     private String name;
@@ -66,6 +68,23 @@ public enum PayChannelEnum {
                 .filter(payChannel -> ConvertUtils.isNotEmpty(code)&&payChannel.getCode().equals(code)).map(payChannel->payChannel.getTradeType()).findFirst();
         if(optionTradeType.isPresent()){
             return optionTradeType.get();
+        } else {
+            return null;
+        }
+    }
+
+
+    /***
+     *
+     * @param productCode
+     * @return
+     */
+    public static String receCode(String productCode){
+        Optional<String> optionServcie = Arrays.asList(PayChannelEnum.values()).stream().filter(tEnum->{
+            return  tEnum.getTradeType().contains(productCode);
+        }).map(tEnum -> tEnum.getCode()).findFirst();
+        if(optionServcie.isPresent()){
+            return optionServcie.get();
         } else {
             return null;
         }
