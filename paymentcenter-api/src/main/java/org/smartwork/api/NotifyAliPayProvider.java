@@ -107,7 +107,7 @@ public class NotifyAliPayProvider extends NotifyBasePay {
             }
             // 业务系统后端通知
             if(ConvertUtils.isNotEmpty(payOrderDto.getNotifyUrl())){
-                notifyMch(OrderTypeEnum.PAY);
+                notifyMch(OrderTypeEnum.PAY,payOrderDto.getNotifyUrl(),payOrderDto.getPayOrderId(),payOrderDto.getMchId(),payOrderDto.getMchOrderNo());
             }
             log.info("====== 完成接收支付宝支付回调通知 ======");
             return PayConstant.RETURN_ALIPAY_VALUE_SUCCESS;

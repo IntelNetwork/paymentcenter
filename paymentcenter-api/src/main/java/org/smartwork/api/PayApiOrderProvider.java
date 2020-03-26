@@ -21,6 +21,7 @@ import org.smartwork.biz.service.IPayOrderService;
 import org.smartwork.comm.MchStateEnum;
 import org.smartwork.comm.PayBizResultEnum;
 import org.smartwork.comm.PayChannelEnum;
+import org.smartwork.comm.PayOperTypeEnum;
 import org.smartwork.constant.PayConstant;
 import org.smartwork.dal.entity.MchInfo;
 import org.smartwork.dal.entity.PayChannel;
@@ -82,7 +83,9 @@ public class PayApiOrderProvider {
     @RequestMapping(value = "/pay-channels",method = RequestMethod.GET)
     public Result<Map<String,String>> payChannels(){
         Result<Map<String,String>>  resultMap = new Result<>();
-        List<PayChannel> payChannels = payChannelService.list();
+        List<PayChannel> payChannels = payChannelService.list(new QueryWrapper<PayChannel>()
+                .eq("oper_type", PayOperTypeEnum.PAY.getCode())
+                .eq("state",MchStateEnum.ACTIVITY.getCode()));
         Map<String,String> payChannelMap = new HashMap<>();
         payChannels.stream().forEach(payChannel -> {
             if(MchStateEnum.ACTIVITY.getCode().equals(payChannel.getState())){

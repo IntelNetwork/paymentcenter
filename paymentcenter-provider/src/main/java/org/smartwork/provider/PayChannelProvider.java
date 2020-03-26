@@ -25,6 +25,22 @@ public class PayChannelProvider extends BaseProvider<IPayChannelService, PayChan
 
 
     /***
+     * 支付操作类型
+     * @return
+     */
+    @ApiOperation("渠道分组")
+    @ApiResponses(value = {
+            @ApiResponse(code=200,message = Result.COMM_ACTION_MSG),
+            @ApiResponse(code=500,message = Result.COMM_ACTION_ERROR_MSG)
+    })
+    @RequestMapping(value = "/pay-oper-types",method = RequestMethod.GET)
+    public List<ResultEnum> payOperTypes(){
+        return PayOperTypeEnum.resultEnums();
+    }
+
+
+
+    /***
      *
      * @return
      */

@@ -3,6 +3,8 @@ package org.smartwork.dal.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Data;
 import org.forbes.comm.entity.BaseEntity;
@@ -61,8 +63,8 @@ public class TransOrder extends BaseEntity {
      * Column:    amount
      * Nullable:  false
      */
-    @ApiModelProperty(value = "转账金额,单位分",example="0")
-    private Long amount;
+    @ApiModelProperty(value = "转账金额",example="0")
+    private BigDecimal amount;
 
     /**
      * 三位货币代码,人民币:cny
@@ -82,7 +84,7 @@ public class TransOrder extends BaseEntity {
      * Nullable:  false
      */
     @ApiModelProperty(value = "转账状态:0-订单生成,1-转账中,2-转账成功,3-转账失败,4-业务处理完成",example="")
-    private Byte status;
+    private Integer status;
 
     /**
      * 转账结果:0-不确认结果,1-等待手动处理,2-确认成功,3-确认失败
@@ -92,7 +94,7 @@ public class TransOrder extends BaseEntity {
      * Nullable:  false
      */
     @ApiModelProperty(value = "转账结果:0-不确认结果,1-等待手动处理,2-确认成功,3-确认失败",example="")
-    private Byte result;
+    private Integer result;
 
     /**
      * 客户端IP
