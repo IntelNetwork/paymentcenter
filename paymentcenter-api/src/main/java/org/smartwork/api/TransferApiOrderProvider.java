@@ -6,7 +6,6 @@ import com.google.common.collect.Maps;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.forbes.comm.service.KafkaProducers;
 import org.forbes.comm.utils.ConvertUtils;
 import org.forbes.comm.utils.IpAddressUtil;
 import org.forbes.comm.utils.SpringContextUtils;

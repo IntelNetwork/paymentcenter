@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
-import org.forbes.comm.constant.UpdateValid;
 import org.forbes.comm.enums.BizResultEnum;
 import org.forbes.comm.utils.ConvertUtils;
 import org.forbes.comm.vo.Result;
@@ -21,8 +20,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
-@Api(tags = {"商户异步通知接口"})
 @Slf4j
+@Api(tags = {"商户异步通知接口"})
 @RestController
 @RequestMapping("${smartwork.verision}/mch-notify")
 public class MchApiNotifyProvider {
