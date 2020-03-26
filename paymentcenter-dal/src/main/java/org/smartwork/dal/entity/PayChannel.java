@@ -2,9 +2,11 @@ package org.smartwork.dal.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.core.enums.SqlKeyword;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.forbes.comm.annotations.QueryColumn;
 import org.forbes.comm.annotations.ValidEnum;
 import org.forbes.comm.annotations.ValidUnique;
 import org.forbes.comm.constant.SaveValid;
@@ -48,6 +50,7 @@ public class PayChannel extends BaseEntity {
     @NotEmpty(message = "渠道名称为空",groups = {SaveValid.class, UpdateValid.class})
     @ValidEnum(bizCode = "007002001",bizErrorMsg = "%s支付渠道不存在", classzz = ChannelNameEnum.class)
     @TableField(value = "channel_name")
+    @QueryColumn(column = "channel_name",sqlKeyword = SqlKeyword.LIKE)
     private String channelName;
 
     /**
