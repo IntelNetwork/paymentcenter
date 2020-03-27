@@ -11,6 +11,7 @@ import org.forbes.comm.utils.ConvertUtils;
 import org.forbes.comm.utils.IpAddressUtil;
 import org.forbes.comm.utils.SpringContextUtils;
 import org.forbes.comm.vo.Result;
+import org.forbes.pay.comm.channel.wechat.WxPayProperties;
 import org.forbes.pay.comm.enums.BizSceneEnum;
 import org.forbes.pay.comm.enums.PayServiceEnum;
 import org.forbes.pay.comm.model.TransferOrderDto;
@@ -102,7 +103,7 @@ public class TransferApiOrderProvider extends NotifyBasePay {
      */
     @ApiOperation("创建转账订单")
     @RequestMapping(value = "/create-order",method = RequestMethod.POST)
-    public Result transferOrder(@RequestBody TransferDto transferDto, HttpServletRequest request) {
+    public Result<Map<String,Object>> transferOrder(@RequestBody TransferDto transferDto, HttpServletRequest request) {
         String logPrefix = "【统一转账订单】";
         String clientIp = IpAddressUtil.getIPAddress(request);
         Result<Map<String,Object>> result = new Result<Map<String,Object> >();
@@ -157,6 +158,10 @@ public class TransferApiOrderProvider extends NotifyBasePay {
                     TransferOrderDto transferOrderDto = TransferOrderDto
                             .TransferOrderDtoBuild.build()
                             .setTransOrderId(transOrder.getTransOrderId())
+                            .setMchId(mchInfo.getMchId())
+                            .setMchKey(reqKey)
+                            .setClientIp(clientIp)
+                            .setDevice(transOrder.getDevice())
                             .setOutBizNo(transferDto.getOutBizNo())
                             .setTransAmount(transferDto.getTransAmount())
                             .setProductCode(transferDto.getProductCode())
@@ -164,6 +169,10 @@ public class TransferApiOrderProvider extends NotifyBasePay {
                             .setPayChannelParam(payChannel.getParam())
                             .setOrderTitle(transferDto.getOrderTitle())
                             .setPayeeInfo(transferDto.getPayeeInfo());
+                    WxPayProperties wxPayProperties = SpringContextUtils.getBean(WxPayProperties.class);
+                    if(ConvertUtils.isNotEmpty(wxPayProperties)){
+                        transferOrderDto.setWxPayProperties(wxPayProperties);
+                    }
                     transferPlugService.beforePay(transferOrderDto);
                     Map<String,Object> reponseMap = transferPlugService.transferReq(null,((payOrderId, payOrderNo) -> {
                         boolean isUpdate = transOrderService.update(new UpdateWrapper<TransOrder>()
@@ -181,8 +190,9 @@ public class TransferApiOrderProvider extends NotifyBasePay {
                                 .set("status",PayConstant.TRANS_STATUS_FAIL)
                                 .set("channel_err_code",reponseMap.get("errorCode").toString())
                                 .set("channel_err_msg",reponseMap.get("errorCode").toString())
-                                .eq("errorMsg",transOrder.getTransOrderId()));
-
+                                .eq("trans_order_id",transOrder.getTransOrderId()));
+                        result.setBizCode(reponseMap.get("errorCode").toString());
+                        result.setMessage(reponseMap.get("errorCode").toString());
                     }
                     /***异步通知***/
                     else {
