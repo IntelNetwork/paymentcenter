@@ -1,9 +1,11 @@
 package org.smartwork.dal.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.core.enums.SqlKeyword;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.forbes.comm.annotations.QueryColumn;
 import org.forbes.comm.entity.BaseEntity;
 
 /**
@@ -111,6 +113,7 @@ public class PayOrder extends BaseEntity {
      * Nullable:  false
      */
     @ApiModelProperty(value = "商品标题",example="")
+    @QueryColumn(column = "subject",sqlKeyword = SqlKeyword.LIKE)
     private String subject;
 
     /**

@@ -1,10 +1,12 @@
 package org.smartwork.dal.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.core.enums.SqlKeyword;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import lombok.Data;
+import org.forbes.comm.annotations.QueryColumn;
 import org.forbes.comm.entity.BaseEntity;
 
 /**
@@ -172,6 +174,7 @@ public class RefundOrder extends BaseEntity {
      * Nullable:  true
      */
     @ApiModelProperty(value = "用户姓名",example="")
+    @QueryColumn(column = "user_name",sqlKeyword = SqlKeyword.LIKE)
     private String userName;
 
     /**

@@ -1,9 +1,11 @@
 package org.smartwork.dal.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.core.enums.SqlKeyword;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.forbes.comm.annotations.QueryColumn;
 import org.forbes.comm.annotations.ValidEnum;
 import org.forbes.comm.annotations.ValidUnique;
 import org.forbes.comm.constant.SaveValid;
@@ -44,6 +46,7 @@ public class MchInfo extends BaseEntity {
      */
     @ApiModelProperty(value = "名称",example="")
     @NotEmpty(message = "商户名称为空",groups = {SaveValid.class, UpdateValid.class})
+    @QueryColumn(column = "name",sqlKeyword = SqlKeyword.LIKE)
     private String name;
 
     @ApiModelProperty(value = "商户所属渠道",example="")
@@ -60,6 +63,7 @@ public class MchInfo extends BaseEntity {
     @ApiModelProperty(value = "类型",example="")
     @NotEmpty(message = "商户类型为空",groups = {SaveValid.class, UpdateValid.class})
     @ValidEnum(bizCode = "007001001",bizErrorMsg = "%s商户类型不存在",classzz = MchTypeEnum.class)
+    @QueryColumn(column = "type",sqlKeyword = SqlKeyword.EQ)
     private String type;
 
     /**
