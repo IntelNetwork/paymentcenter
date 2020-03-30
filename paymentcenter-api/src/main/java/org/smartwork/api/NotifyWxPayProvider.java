@@ -162,7 +162,7 @@ public class NotifyWxPayProvider extends NotifyBasePay{
                 .setMchKey(mchInfo.getResKey())
                 .setNotifyUrl(payOrder.getNotifyUrl())
                 .setWxPayProperties(wxPayProperties);
-        resultMap.put("wxPayConfig", WxPayUtil.getWxPayConfig(payOrderDto,channelParam));
+        resultMap.put("wxPayConfig", WxPayUtil.getWxPayConfig(payOrderDto.getMchId(),payOrderDto.getMchKey(),payOrderDto.getTradeType(),wxPayProperties,channelParam));
         PayContext.TH_PAY_ORDER.set(payOrderDto);
         // 核对金额
         long wxPayAmt = new BigDecimal(total_fee).longValue();
