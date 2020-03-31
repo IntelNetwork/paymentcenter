@@ -26,6 +26,7 @@ public class TransOrder extends BaseEntity {
      * Nullable:  false
      */
     @ApiModelProperty(value = "转账订单号",example="")
+    @QueryColumn(column = "trans_order_id",sqlKeyword = SqlKeyword.EQ)
     private String transOrderId;
 
     /**
