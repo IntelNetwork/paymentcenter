@@ -24,6 +24,7 @@ public class RefundOrder extends BaseEntity {
      * Nullable:  false
      */
     @ApiModelProperty(value = "退款订单号",example="")
+    @QueryColumn(column = "refund_order_id",sqlKeyword = SqlKeyword.EQ)
     private String refundOrderId;
 
     /**

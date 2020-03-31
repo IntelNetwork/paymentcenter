@@ -23,6 +23,7 @@ public class PayOrder extends BaseEntity {
      * Nullable:  false
      */
     @ApiModelProperty(value = "支付订单号",example="")
+    @QueryColumn(column = "pay_order_id",sqlKeyword = SqlKeyword.EQ)
     private String payOrderId;
 
     /**
